@@ -1,0 +1,5 @@
+# Webstorm directory
+.idea/
+
+# instaled modules from node.js
+node_modules/
