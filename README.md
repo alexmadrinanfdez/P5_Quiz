@@ -4,6 +4,12 @@ Basada en la estructura MVC:
 * Modelo (model)
 * Vista (view)
 * Controlador (controller)
+
 Las vistas cuentan con un molde común (layout.ejs) en el que sólo cambia el cuerpo de la página.
 ## Autor
 Incluye una página con información del autor.
+## Diseño adaptativo
+La página web se adapta al tamaño de la pantalla para mostrar su contenido:
+* *Vista básica*: sirve de base y está presente en todos los casos.
+* *Vista ancha*: para pantallas grandes.
+* *Vista estrecha*: para pantallas pequeñas, tipo móvil.
