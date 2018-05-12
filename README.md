@@ -1,5 +1,6 @@
 # P5_Quiz
-Aplicación web de servidor generada por express-generator.
+Aplicación web de servidor generada por express-generator y desplegada en la plataforma Heroku.
+
 Basada en la estructura MVC:
 * Modelo (model)
 * Vista (view)
