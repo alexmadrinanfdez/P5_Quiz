@@ -3,3 +3,6 @@
 
 # installed modules from node.js
 node_modules/
+
+# DB
+quiz.sqlite
