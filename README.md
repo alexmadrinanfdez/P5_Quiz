@@ -7,13 +7,20 @@ Basada en la estructura MVC:
 * Controlador (controller)
 ## Autor
 Incluye una página con información del autor.
-## Diseño adaptativo
+## Vista
+### Diseño adaptativo
 La página web se adapta al tamaño de la pantalla para mostrar su contenido:
 * *Vista básica*: sirve de base y está presente en todos los casos.
 * *Vista ancha*: para pantallas grandes.
 * *Vista estrecha*: para pantallas pequeñas, tipo móvil.
-
-Además, las vistas cuentan con un molde común (layout.ejs), por lo tanto, sólo cambia el cuerpo de la página.
+### Layout
+Además, las vistas cuentan con un molde común (*layout.ejs*), por lo tanto, sólo cambia el cuerpo de la página.
+### Mensajes 'flash'
+La aplicación envía mensajes de tipo *flash* entre transacciones para avisar de determinados eventos.
+Los mensajes pueden ser:
+* Informativos
+* De éxito
+* De error
 ## Quizzes
 La aplicación es un almacén de quizzes. Las acciones permitidas para los quizzes son:
 * Crear

@@ -6,6 +6,8 @@ const Sequelize = require('sequelize');
 const sequelize = new Sequelize("sqlite:quiz.sqlite");
 // Import the definition of quiz from quiz.js
 sequelize.import(path.join(__dirname, 'quiz'));
+// Session
+sequelize.import(path.join(__dirname, 'session'));
 
 // Create tables
 sequelize.sync()
