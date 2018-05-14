@@ -6,3 +6,6 @@ node_modules/
 
 # DB
 quiz.sqlite
+
+# Heroku en local
+.env

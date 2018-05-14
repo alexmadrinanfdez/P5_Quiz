@@ -32,4 +32,5 @@ La aplicación es un almacén de quizzes. Las acciones permitidas para los quizz
 El recurso **Quizzes** utiliza autoload del parámetro *:quizId* para simplificar el código del controlador.
 Este método consiste, básicamente, en introducir otro MW que responda a dicho parámetro y actúe en consecuencia.
 ## DDBB (Modelo)
-Como base datos utilizamos SQLite (a través de un ORM, Sequelize).
+Como base datos, en desarrrollo, utilizamos SQLite (a través de un ORM, Sequelize).
+En producción utilizamos Postgres (Heroku Postgres).

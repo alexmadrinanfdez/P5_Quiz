@@ -22,7 +22,10 @@
     "http-errors": "~1.6.2",
     "method-override": "^2.3.10",
     "morgan": "~1.9.0",
-    "sequelize": "^4.37.7",
+    "pg": "^7.4.3",
+    "sequelize": "^4.37.7"
+  },
+  "devDependencies": {
     "sqlite3": "^4.0.0"
   }
 }
