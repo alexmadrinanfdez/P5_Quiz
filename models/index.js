@@ -14,12 +14,4 @@ sequelize.import(path.join(__dirname, 'quiz'));
 // Session
 sequelize.import(path.join(__dirname, 'session'));
 
-// Create tables
-sequelize.sync()
-.then(() => console.log("Data bases created successfully"))
-.catch(error => {
-    console.log("Error creating the data bases tables:", error);
-    process.exit(1);
-});
-
 module.exports = sequelize;
