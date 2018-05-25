@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const {models} = require('../models');
+const paginate = require('../helpers/paginate').paginate;
 
 // Autoload quiz (:quizId)
 exports.load = (req, res, next, quizId) => {
@@ -17,7 +18,23 @@ exports.load = (req, res, next, quizId) => {
 
 // GET /quizzes
 exports.index = (req, res, next) => {
-    models.quiz.findAll()
+    models.quiz.count()
+        .then(count => {
+            // Pagination:
+            const items_per_page = 1;
+            // The page to show is given in the query
+            const pageno = parseInt(req.query.pageno || 1);
+            /**
+             * Create a string with the HTML used to render the pagination buttons.
+             * This string is added to a local variable of res, which is used into the application layout file
+             */
+            res.locals.paginate_control = paginate(count, items_per_page, pageno, req.url);
+            const findOptions = {
+                offset: items_per_page * (pageno - 1),
+                limit: items_per_page
+            };
+            return models.quiz.findAll(findOptions);
+        })
         .then(quizzes => {
             res.render('quizzes/index', {quizzes});
         })
