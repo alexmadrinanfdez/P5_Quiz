@@ -18,10 +18,17 @@ exports.load = (req, res, next, quizId) => {
 
 // GET /quizzes
 exports.index = (req, res, next) => {
-    models.quiz.count()
+    let countOptions = {};
+    // Search:
+    const search = req.query.search || '';
+    if (search) {
+        const search_like = `%${search.replace(/ +/g, '%')}%`; // Se normaliza la búsqueda (sustituyendo blancos por "%")
+        countOptions.where = {question: { [Sequelize.Op.like]: search_like }};
+    }
+    models.quiz.count(countOptions)
         .then(count => {
             // Pagination:
-            const items_per_page = 1;
+            const items_per_page = 7;
             // The page to show is given in the query
             const pageno = parseInt(req.query.pageno || 1);
             /**
@@ -30,13 +37,14 @@ exports.index = (req, res, next) => {
              */
             res.locals.paginate_control = paginate(count, items_per_page, pageno, req.url);
             const findOptions = {
+                ...countOptions,
                 offset: items_per_page * (pageno - 1),
                 limit: items_per_page
             };
             return models.quiz.findAll(findOptions);
         })
         .then(quizzes => {
-            res.render('quizzes/index', {quizzes});
+            res.render('quizzes/index', { quizzes, search });
         })
         .catch(error => next(error));
 };

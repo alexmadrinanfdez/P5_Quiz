@@ -33,6 +33,10 @@ a {
   color: #00B7FF;
 }
 
+.right {
+  float: right;
+}
+
 .wideRow {
   display: flex;
   flex-flow: row wrap;
@@ -132,7 +136,7 @@ a {
 .pagination > li > span {
   position: relative;
   float: left;
-  padding: 3px 7px;
+  padding: 1px 5px;
   margin-left: -1px;
   line-height: 1.42857143;
   color: #00B7FF;
