@@ -12,4 +12,12 @@
         <input type="submit" class="itemNarrow" value="Check">
     </div>
 </form>
+
+<h2>
+    Tips:
+</h2>
+<% include ../tips/new.ejs %>
+<% var tips = quiz.tips; %>
+<% include ../tips/index.ejs %>
+
 <a href="/quizzes"><button>Go back</button></a>

@@ -13,5 +13,12 @@ const sequelize = new Sequelize(url);
 sequelize.import(path.join(__dirname, 'quiz'));
 // Session
 sequelize.import(path.join(__dirname, 'session'));
+// Import the definition of tip from tip.js
+sequelize.import(path.join(__dirname, 'tip'));
+
+// Relations between models
+const {quiz, tip} = sequelize.models;
+tip.belongsTo(quiz);
+quiz.hasMany(tip);
 
 module.exports = sequelize;
