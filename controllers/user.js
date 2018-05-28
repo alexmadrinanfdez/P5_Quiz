@@ -59,7 +59,8 @@ exports.create = (req, res, next) => {
     user.save({fields: ['username', 'password', 'salt']})
         .then(user => {
             req.flash('success', 'User created succesfully.');
-            res.redirect(`/users/${user.id}`);
+            if (req.session.user) res.redirect(`/users/${user.id}`);
+            else res.redirect('/session'); // Redirection to login page
         })
         .catch(Sequelize.UniqueConstraintError, error => {
             req.flash('error', `User "${username}" already exists.`);
@@ -99,6 +100,8 @@ exports.update = (req, res, next) => {
 exports.destroy = (req, res, next) => {
     req.user.destroy()
         .then(() => {
+            // Deleting logged user => close session
+            if (req.session.user && req.session.user.id === req.user.id) delete req.session.user;
             req.flash('success', 'User deleted successfully.');
             res.redirect('/users');
         })

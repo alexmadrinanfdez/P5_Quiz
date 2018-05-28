@@ -42,6 +42,9 @@ El los quizzes pueden incluir pistas (*tips*). Sólo en determinadas vistas es p
 ## Usuarios
 La aplicación cuenta con un sistema de usuarios.
 Cada usuario posee una contraseña (que siempre se **encripta** antes de enviarla).
+### Sesión
+Los usuarios tienen opción de inciar y cerrar sesión cuando quieran.
+Además, hay un tiempo límite de inactividad para que la sesión no se cierre automáticamente (5 minutos).
 ## DDBB (Modelo)
 Como base datos, en desarrollo, utilizamos SQLite (a través de un ORM, Sequelize).
 En producción utilizamos Postgres (Heroku Postgres).

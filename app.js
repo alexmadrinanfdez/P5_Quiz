@@ -40,6 +40,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(partials());
 app.use(flash());
 
+// Dynamic helper:
+app.use(function (req, res, next) {
+    // To use req.session in views
+    res.locals.session = req.session;
+    next();
+});
+
 app.use('/', indexRouter);
 
 // catch 404 and forward to error handler

@@ -2,7 +2,7 @@ const crypt = require('../helpers/crypt');
 
 // Definition of the user model:
 module.exports = function (sequelize, DataTypes) {
-    return sequelize.define('user',
+    const user = sequelize.define('user',
         {
             username: {
                 type: DataTypes.STRING,
@@ -26,4 +26,9 @@ module.exports = function (sequelize, DataTypes) {
                 defaultValue: false
             }
         });
+    user.prototype.verifyPassword = function (password) {
+        return crypt.encryptPassword(password, this.salt) === this.password;
+    };
+
+    return user;
 };
