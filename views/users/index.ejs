@@ -1,0 +1,23 @@
+<h1>
+    All users:
+</h1>
+<table>
+    <% for (var i in users) { %>
+    <% var user = users[i]; %>
+    <tr>
+        <td>
+            <a href="/users/<%= user.id %>"><%= user.username %></a><%= user.isAdmin ? '(admin)' : '' %>
+        </td>
+        <td>
+            <a href="/users/<%= user.id %>/edit"><button>edit</button></a>
+        </td>
+        <td>
+            <a href="/users/<%= user.id %>?_method=DELETE"
+               onclick="return confirm('Delete user: <%= user.username %>');">
+                <button>delete</button>
+            </a>
+        </td>
+    </tr>
+    <% } %>
+</table>
+<a href="/users/new"><button type="button">Create new user</button> </a>

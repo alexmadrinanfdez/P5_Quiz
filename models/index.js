@@ -15,9 +15,12 @@ sequelize.import(path.join(__dirname, 'quiz'));
 sequelize.import(path.join(__dirname, 'session'));
 // Import the definition of tip from tip.js
 sequelize.import(path.join(__dirname, 'tip'));
+// Import the definition of user from user.js
+sequelize.import(path.join(__dirname, 'user'));
 
 // Relations between models
 const {quiz, tip} = sequelize.models;
+
 tip.belongsTo(quiz);
 quiz.hasMany(tip);
 

@@ -5,15 +5,16 @@ const paginate = require('../helpers/paginate').paginate;
 // Autoload quiz (:quizId)
 exports.load = (req, res, next, quizId) => {
     models.quiz.findById(quizId, {include: [ models.tip ]})
-      .then(quiz => {
-          if (quiz) {
-              req.quiz = quiz;
-              next();
-          } else {
-              throw new Error(`There's no quiz with id = ${quizId}`);
-          }
-      })
-      .catch(error => next(error));
+        .then(quiz => {
+            if (quiz) {
+                req.quiz = quiz;
+                next();
+            } else {
+                req.flash('error', `There's no quiz with id = ${quizId}`);
+                throw new Error(`quizId = ${quizId} doesn't exist`);
+            }
+        })
+        .catch(error => next(error));
 };
 
 // GET /quizzes
