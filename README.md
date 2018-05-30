@@ -45,6 +45,8 @@ Cada usuario posee una contraseña (que siempre se **encripta** antes de enviarl
 ### Autores
 Los usuarios pueden convertirse en autores si crean quizzes.
 Se indica al lado de cada quiz quién es su autor *(by "author")*.
+#### My quizzes
+Cuando el usuario ha iniciado sesión, además, se aparece una pestaña (*My quizzes*) con los quizzes creados por él.
 ### Sesión
 Los usuarios tienen opción de inciar y cerrar sesión cuando quieran.
 Además, hay un tiempo límite de inactividad para que la sesión no se cierre automáticamente (5 minutos).

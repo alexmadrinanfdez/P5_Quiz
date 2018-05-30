@@ -40,6 +40,9 @@
         <a href="/author">Author</a>
         <a href="/quizzes">Quizzes</a>
         <a href="/users">Users</a>
+        <% if (session.user) { %>
+        <a href="/users/<%= session.user.id %>/quizzes">My quizzes</a>
+        <% } %>
     </nav>
 
     <section class="main" id="mainSection">

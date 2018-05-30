@@ -47,6 +47,8 @@ router.get('/users/:userId(\\d+)/edit', userController.edit);
 router.put('/users/:userId(\\d+)', userController.update);
 router.delete('/users/:userId(\\d+)', userController.destroy);
 
+router.get('/users/:userId(\\d+)/quizzes', quizController.index);
+
 // Routes for the resource "/session"
 router.get('/session', sessionController.new);
 router.post('/session', sessionController.create);

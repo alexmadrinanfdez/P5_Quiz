@@ -24,12 +24,17 @@ exports.load = (req, res, next, quizId) => {
 
 // GET /quizzes
 exports.index = (req, res, next) => {
-    let countOptions = {};
+    let countOptions = { where: {} };
+    let title = 'Questions';
     // Search:
     const search = req.query.search || '';
     if (search) {
         const search_like = `%${search.replace(/ +/g, '%')}%`; // Se normaliza la búsqueda (sustituyendo blancos por "%")
         countOptions.where = {question: { [Sequelize.Op.like]: search_like }};
+    }
+    if (req.user) { // only if route includes /:userId (autoload)
+        countOptions.where.authorId = req.user.id;
+        title = `Questions of ${req.user.username}`;
     }
     models.quiz.count(countOptions)
         .then(count => {
@@ -51,7 +56,11 @@ exports.index = (req, res, next) => {
             return models.quiz.findAll(findOptions);
         })
         .then(quizzes => {
-            res.render('quizzes/index', { quizzes, search });
+            res.render('quizzes/index', {
+                quizzes,
+                search,
+                title
+            });
         })
         .catch(error => next(error));
 };
