@@ -134,7 +134,7 @@ exports.destroy = (req, res, next) => {
     req.quiz.destroy()
         .then(() => {
             req.flash('success', 'Quiz deleted successfully.');
-            res.redirect('/quizzes');
+            res.redirect('/goback');
         })
         .catch(error => {
             req.flash('error', `Error deleting the quiz: ${error.message}`);

@@ -103,7 +103,7 @@ exports.destroy = (req, res, next) => {
             // Deleting logged user => close session
             if (req.session.user && req.session.user.id === req.user.id) delete req.session.user;
             req.flash('success', 'User deleted successfully.');
-            res.redirect('/users');
+            res.redirect('/goback');
         })
         .catch(error => next(error));
 };
