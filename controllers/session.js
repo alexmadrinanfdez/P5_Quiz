@@ -16,6 +16,11 @@ exports.deleteExpiredUserSession = (req, res, next) => {
     next();
 };
 
+exports.loginRequired = function (req, res, next) {
+    if (req.session.user) next();
+    else res.redirect(`/session?redir=${req.param('redir') || req.url}`)
+};
+
 const authenticate = (username, password) => {
     return models.user.findOne({where: {username: username}})
         .then(user => {

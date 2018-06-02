@@ -39,7 +39,9 @@
         <a href="/">Home</a>
         <a href="/author">Author</a>
         <a href="/quizzes">Quizzes</a>
+        <% if (session.user) { %>
         <a href="/users">Users</a>
+        <% } %>
         <% if (session.user) { %>
         <a href="/users/<%= session.user.id %>/quizzes">My quizzes</a>
         <% } %>

@@ -12,7 +12,9 @@
 <h2>
     Tips:
 </h2>
+<% if (session.user) { %>
 <% include ../tips/new.ejs %>
+<% } %>
 <% var tips = quiz.tips; %>
 <% include ../tips/index.ejs %>
 

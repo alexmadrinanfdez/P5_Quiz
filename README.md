@@ -57,3 +57,5 @@ En producción utilizamos Postgres (Heroku Postgres).
 Las migraciones nos permiten ir aumentando el tamaño de nuestro modelo paulatinamente sin tener que empezar de cero cada vez.
 ### Semillas
 Las semillas inicializan los modelos con los valores que definamos en un principio.
+## Autorización
+Se restrigen determinadas actividades según el usuario este logueado o no.

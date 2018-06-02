@@ -8,6 +8,7 @@
         <td>
             <a href="/users/<%= user.id %>"><%= user.username %></a><%= user.isAdmin ? '(admin)' : '' %>
         </td>
+        <% if (session.user) { %>
         <td>
             <a href="/users/<%= user.id %>/edit"><button>edit</button></a>
         </td>
@@ -17,7 +18,10 @@
                 <button>delete</button>
             </a>
         </td>
+        <% } %>
     </tr>
     <% } %>
 </table>
+<% if (session.user) { %>
 <a href="/users/new"><button type="button">Create new user</button> </a>
+<% } %>
