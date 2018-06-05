@@ -4,11 +4,17 @@ body {
 }
 
 #page:after {
+    color: #fcf3cf;
     content: 'Smartphone Layout';
 }
 
 #mainHeader {
     font-size: x-large;
+}
+
+#mainNav {
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
 
 .no-narrow {

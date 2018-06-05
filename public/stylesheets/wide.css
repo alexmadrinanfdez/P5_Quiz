@@ -3,12 +3,13 @@ body {
 }
 
 #page:after {
-    color: white;
+    color: #fcf3cf;
     content: 'Wide Layout';
 }
 
 #mainNav {
     flex: 0 auto;
+    margin-right: 6px;
 }
 #mainNav a {
     display: block;

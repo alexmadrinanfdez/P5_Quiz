@@ -47,6 +47,8 @@ router.get('/author', (req, res, next) => {
 router.param('quizId', quizController.load); // summons load() every time it detects the param :quizId
 // Autoload for routes using :userId
 router.param('userId', userController.load);
+// Autoload for routes using :tipId
+router.param('tipId', tipController.load);
 
 // Routes for the resource "/quizzes"
 router.get('/quizzes', quizController.index);
@@ -61,6 +63,8 @@ router.get('/quizzes/:quizId(\\d+)/play', quizController.play);
 router.get('/quizzes/:quizId(\\d+)/check', quizController.check);
 
 router.post('/quizzes/:quizId(\\d+)/tips', sessionController.loginRequired, tipController.create);
+router.put('/quizzes/:quizId(\\d+)/tips/:tipId(\\d+)/accept', sessionController.loginRequired, tipController.accept);
+router.delete('/quizzes/:quizId(\\d+)/tips/:tipId(\\d+)', sessionController.loginRequired, tipController.destroy);
 
 // Routes for the resource "/users"
 router.get('/users', sessionController.loginRequired, userController.index);

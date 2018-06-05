@@ -39,6 +39,7 @@ Podemos buscar un quiz en concreto a través de sus preguntas.
 La búsqueda se implementa como un parámetro que pasamos a la base de datos (opciones de búsqueda).
 ## Pistas
 El los quizzes pueden incluir pistas (*tips*). Sólo en determinadas vistas es posible visualizar y crear pistas.
+Además, las pistas deben ser aceptadas para que un usuario cualquiera (no logueado) pueda verlas.
 ## Usuarios
 La aplicación cuenta con un sistema de usuarios.
 Cada usuario posee una contraseña (que siempre se **encripta** antes de enviarla).

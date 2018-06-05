@@ -1,5 +1,13 @@
 <ul>
     <% for (var i in tips) { %>
-    <li><%= tips[i].text %></li>
+    <li>
+        <% if (tips[i].accepted) { %>
+        <%= tips[i].text %>
+        <% } else if (session.user) { %>
+        <%= tips[i].text %>
+        <a href="/quizzes/<%= quizId %>/tips/<%= tips[i].id %>/accept?_method=PUT"><button>Accept</button></a>
+        <% } %>
+        <a href="/quizzes/<%= quizId %>/tips/<%= tips[i].id %>?_method=DELETE"><button>Delete</button></a>
+    </li>
     <% } %>
 </ul>
