@@ -20,6 +20,35 @@ exports.loginRequired = function (req, res, next) {
     if (req.session.user) next();
     else res.redirect(`/session?redir=${req.param('redir') || req.url}`)
 };
+exports.adminRequired = (req, res, next) => {
+    const isAdmin = !!req.session.user.isAdmin; // Type conversion in case is not boolean
+
+    if (isAdmin) next();
+    else {
+        console.log('Prohibited route: the logged user is not an administrator.');
+        res.send(403);
+    }
+};
+exports.adminOrMyselfRequired = (req, res, next) => {
+    const isAdmin = !!req.session.user.isAdmin; // Type conversion in case is not boolean
+    const isMyself = req.user.id === req.session.user.id;
+
+    if (isAdmin || isMyself) next();
+    else {
+        console.log('Prohibited route: it is not the logged user nor an administrator.');
+        res.send(403);
+    }
+};
+exports.adminAndNotMyselfRequired = (req, res, next) => {
+    const isAdmin = !!req.session.user.isAdmin; // Type conversion in case is not boolean
+    const isAnother = req.user.id !== req.session.user.id;
+
+    if (isAdmin && isAnother) next();
+    else {
+        console.log('Prohibited route: the user is logged or is an administrator.');
+        res.send(403);
+    }
+};
 
 const authenticate = (username, password) => {
     return models.user.findOne({where: {username: username}})
@@ -52,6 +81,7 @@ exports.create = (req, res, next) => {
                 req.session.user = {
                     id: user.id,
                     username: user.username,
+                    isAdmin: user.isAdmin,
                     expires: Date.now() + maxIdleTime
                 };
                 res.redirect(redir);

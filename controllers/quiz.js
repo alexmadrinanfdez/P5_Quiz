@@ -22,6 +22,17 @@ exports.load = (req, res, next, quizId) => {
         .catch(error => next(error));
 };
 
+exports.adminOrAuthorRequired = (req, res, next) => {
+    const isAdmin = !!req.session.user.isAdmin; // Type conversion in case is not boolean
+    const isAuthor = req.quiz.authorId === req.session.user.id;
+
+    if (isAdmin || isAuthor) next();
+    else {
+        console.log('Prohibited operation: the logged user is not an administrator nor the author of the quiz.');
+        res.send(403);
+    }
+};
+
 // GET /quizzes
 exports.index = (req, res, next) => {
     let countOptions = { where: {} };

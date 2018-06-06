@@ -9,15 +9,19 @@
             <a href="/users/<%= user.id %>"><%= user.username %></a><%= user.isAdmin ? '(admin)' : '' %>
         </td>
         <% if (session.user) { %>
+        <% if (session.user.isAdmin || session.user.id === user.id) { %>
         <td>
             <a href="/users/<%= user.id %>/edit"><button>edit</button></a>
         </td>
+        <% } %>
+        <% if (session.user.isAdmin && session.user.id !== user.id) { %>
         <td>
             <a href="/users/<%= user.id %>?_method=DELETE"
                onclick="return confirm('Delete user: <%= user.username %>');">
                 <button>delete</button>
             </a>
         </td>
+        <% } %>
         <% } %>
     </tr>
     <% } %>

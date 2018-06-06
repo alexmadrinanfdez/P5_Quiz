@@ -43,6 +43,12 @@ Además, las pistas deben ser aceptadas para que un usuario cualquiera (no logue
 ## Usuarios
 La aplicación cuenta con un sistema de usuarios.
 Cada usuario posee una contraseña (que siempre se **encripta** antes de enviarla).
+### Permisos
+Existen actividades restringidas dentro de la aplicación que requieren de ciertos permisos para poder realizarlas.
+Estos permisos están asociados a los distintos **roles** que puede tener un individuo:
+* Administrador
+* Usuario
+* Anónimo (usuario sin iniciar sesión)
 ### Autores
 Los usuarios pueden convertirse en autores si crean quizzes.
 Se indica al lado de cada quiz quién es su autor *(by "author")*.
