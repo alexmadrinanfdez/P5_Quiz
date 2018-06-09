@@ -11,10 +11,15 @@ body {
     flex: 0 auto;
     margin-right: 6px;
 }
-#mainNav a {
-    display: block;
-    text-align: left;
+#mainNav ul {
+    flex-direction: column;
 }
+#mainNav a {
+    padding: 1em;
+    margin-bottom: 0.2em;
+    background-color: #f5b7b1;
+}
+#mainNav a:hover {background-color: lightcoral;}
 
 #mainSection {
     flex: 1;

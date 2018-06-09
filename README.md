@@ -41,7 +41,7 @@ La búsqueda se implementa como un parámetro que pasamos a la base de datos (op
 
 ## Pistas
 El los quizzes pueden incluir pistas (*tips*). Sólo en determinadas vistas es posible visualizar y crear pistas.
-Además, las pistas deben ser aceptadas para que un usuario cualquiera (no logueado) pueda verlas.
+Además, las pistas deben ser aceptadas para que un usuario cualquiera pueda verlas.
 
 ## Usuarios
 La aplicación cuenta con un sistema de usuarios.

@@ -36,15 +36,15 @@
     </header>
 
     <nav class="main" id="mainNav" role="navigation">
-        <a href="/">Home</a>
-        <a href="/author">Author</a>
-        <a href="/quizzes">Quizzes</a>
-        <% if (session.user) { %>
-        <a href="/users">Users</a>
-        <% } %>
-        <% if (session.user) { %>
-        <a href="/users/<%= session.user.id %>/quizzes">My quizzes</a>
-        <% } %>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/author">Author</a></li>
+            <li><a href="/quizzes">Quizzes</a></li>
+            <% if (session.user) { %>
+            <li><a href="/users">Users</a></li>
+            <li><a href="/users/<%= session.user.id %>/quizzes">My quizzes</a></li>
+            <% } %>
+        </ul>
     </nav>
 
     <section class="main" id="mainSection">

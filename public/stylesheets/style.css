@@ -23,10 +23,30 @@ body {
 }
 
 #mainHeader h1 {margin: 8px;}
-#mainNav a {margin: 0 5px;}
+#mainNav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+}
+#mainNav ul li {flex-grow: 1;}
+#mainNav a {
+  display: block;
+  padding: 0.4em;
+  background-color: lightgray;
+  margin-right: 0.2em;
+  text-decoration: none;
+  color: #000;
+}
+#mainNav a:hover {background-color: lightcoral;}
 #mainSection {
   padding: 20px;
   text-align: left;
+}
+
+ul {
+  list-style-type: square;
 }
 
 a {
