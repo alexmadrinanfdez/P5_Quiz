@@ -1,13 +1,19 @@
-<div class="right">
-    <small>(by <%= quiz.author ? quiz.author.username : 'Anonymous' %>)</small>
-</div>
 <h1>
     Show quiz:
 </h1>
-<ul>
-    <li>Question: <b><%= quiz.question %></b></li>
-    <li>Answer: <b><%= quiz.answer %></b></li>
-</ul>
+<div class="quizItem">
+    <div>
+        <% var attachment = quiz.attachment; %>
+        <% include ../attachments/_show.ejs %>
+    </div>
+    <div>
+        Question: <b><%= quiz.question %></b>
+        <br/>
+        Answer: <b><%= quiz.answer %></b>
+        <br/>
+        <small>(by <%= quiz.author ? quiz.author.username : 'Anonymous' %>)</small>
+    </div>
+</div>
 
 <h2>
     Tips:

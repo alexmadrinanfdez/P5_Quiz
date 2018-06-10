@@ -17,14 +17,19 @@ sequelize.import(path.join(__dirname, 'session'));
 sequelize.import(path.join(__dirname, 'tip'));
 // Import the definition of user from user.js
 sequelize.import(path.join(__dirname, 'user'));
+// Import the definition of attachment from attachment.js
+sequelize.import(path.join(__dirname, 'attachment'));
 
 // Relations between models
-const {quiz, tip, user} = sequelize.models;
+const {quiz, tip, user, attachment} = sequelize.models;
 
 tip.belongsTo(quiz);
 quiz.hasMany(tip);
 
 user.hasMany(quiz, {foreignKey: 'authorId'});
 quiz.belongsTo(user, {as: 'author', foreignKey: 'authorId'});
+
+attachment.belongsTo(quiz);
+quiz.hasOne(attachment);
 
 module.exports = sequelize;

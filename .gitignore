@@ -7,5 +7,8 @@ node_modules/
 # DB
 quiz.sqlite
 
-# Heroku en local
+# environment variables
 .env
+
+# images (in Cloudinary)
+uploads/
