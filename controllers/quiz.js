@@ -16,13 +16,24 @@ const cloudinary_upload_options = {
 
 // Autoload quiz (:quizId)
 exports.load = (req, res, next, quizId) => {
-    models.quiz.findById(quizId, {
+    const options = {
         include: [
             models.tip,
             models.attachment,
             { model: models.user, as: 'author' } // adds an object user as a property 'author' to the quiz (quiz.author)
         ]
-    })
+    };
+    // For logged in users: include the favourites of the question by filtering by the logged in user with an OUTER JOIN.
+    if (req.session.user) {
+        options.include.push({
+            model: models.user,
+            as: 'fans',
+            where: {id: req.session.user.id},
+            required: false // OUTER JOIN
+        });
+    }
+
+    models.quiz.findById(quizId, options)
         .then(quiz => {
             if (quiz) {
                 req.quiz = quiz;
@@ -48,7 +59,8 @@ exports.adminOrAuthorRequired = (req, res, next) => {
 
 // GET /quizzes
 exports.index = (req, res, next) => {
-    let countOptions = { where: {} };
+    let countOptions = { where: {}, include: [] };
+    const searchFav = req.query.searchFav || '';
     let title = 'Questions';
     // Search:
     const search = req.query.search || '';
@@ -58,7 +70,32 @@ exports.index = (req, res, next) => {
     }
     if (req.user) { // only if route includes /:userId (autoload)
         countOptions.where.authorId = req.user.id;
-        title = `Questions of ${req.user.username}`;
+        if (req.session.user && req.session.user.id === req.user.id) title = 'My Quizzes';
+        else title = `Quizzes of ${req.user.username}`;
+    }
+    // Filter: my favourite quizzes
+    if (req.session.user) {
+        if (searchFav) {
+            countOptions.include.push({
+                model: models.user,
+                as: 'fans',
+                where: {id: req.session.user.id},
+                attributes: ['id']
+            });
+        } else {
+            /*
+            NOTE:
+            It should be added the options ( or similars ) to have a lighter query:
+                where: {id: req.session.user.id},
+                required: false  // OUTER JOIN
+            but this does not work with SQLite. The generated query fails when there are several fans of the same quiz.
+            */
+            countOptions.include.push({
+                model: models.user,
+                as: 'fans',
+                attributes: ['id']
+            });
+        }
     }
     models.quiz.count(countOptions)
         .then(count => {
@@ -66,7 +103,7 @@ exports.index = (req, res, next) => {
             const items_per_page = 7;
             // The page to show is given in the query
             const pageno = parseInt(req.query.pageno || 1);
-            /**
+            /*
              * Create a string with the HTML used to render the pagination buttons.
              * This string is added to a local variable of res, which is used into the application layout file
              */
@@ -74,17 +111,28 @@ exports.index = (req, res, next) => {
             const findOptions = {
                 ...countOptions,
                 offset: items_per_page * (pageno - 1),
-                limit: items_per_page,
-                include: [
-                    models.attachment,
-                    { model: models.user, as: 'author' }]
+                limit: items_per_page
             };
+            findOptions.include.push(models.attachment);
+            findOptions.include.push({
+                model: models.user,
+                as: 'author'
+            });
             return models.quiz.findAll(findOptions);
         })
         .then(quizzes => {
+            // Mark favourite quizzes
+            if (req.session.user) {
+                quizzes.forEach(quiz => {
+                    quiz.favourite = quiz.fans.some(fan => {
+                        return fan.id === req.session.user.id;
+                    });
+                });
+            }
             res.render('quizzes/index', {
                 quizzes,
                 search,
+                searchFav,
                 title,
                 cloudinary
             });
@@ -95,10 +143,25 @@ exports.index = (req, res, next) => {
 exports.show = (req, res, next) => {
     const {quiz} = req;
 
-    res.render('quizzes/show', {
-        quiz,
-        cloudinary
-    });
+    new Promise((resolve, reject) => {
+        // Only for logger users:
+        //   if this quiz is one of my favourites, then I create the attribute "favourite = true"
+        if (req.session.user) {
+            resolve(
+                req.quiz.getFans({where: {id: req.session.user.id}})
+                    .then(fans => {
+                        if (fans.length > 0) req.quiz.favourite = true;
+                    })
+            );
+        } else resolve();
+    })
+        .then(() => {
+            res.render('quizzes/show', {
+                quiz,
+                cloudinary
+            });
+        })
+        .catch(error => next(error));
 };
 // GET /quizzes/new
 exports.new = (req, res, next) => {
@@ -261,11 +324,26 @@ exports.play = (req, res, next) => {
     const {quiz, query} = req;
     const answer = query.answer || '';
 
-    res.render('quizzes/play', {
-        quiz,
-        answer,
-        cloudinary
-    });
+    new Promise((resolve, reject) => {
+        // Only for logger users:
+        //   if this quiz is one of my favourites, then I create the attribute "favourite = true"
+        if (req.session.user) {
+            resolve(
+                req.quiz.getFans({where: {id: req.session.user.id}})
+                    .then(fans => {
+                        if (fans.length > 0) req.quiz.favourite = true;
+                    })
+            );
+        } else resolve();
+    })
+        .then(() => {
+            res.render('quizzes/play', {
+                quiz,
+                answer,
+                cloudinary
+            });
+        })
+        .catch(error => next(error));
 };
 // GET /quizzes/:quizId/check
 exports.check = (req, res, next) => {

@@ -38,6 +38,10 @@ La aplicación es un almacén de quizzes. Las acciones permitidas para los quizz
 ### Búsqueda
 Podemos buscar un quiz en concreto a través de sus preguntas.
 La búsqueda se implementa como un parámetro que pasamos a la base de datos (opciones de búsqueda).
+### Favoritos
+Los *quizzes* se pueden marcar como favoritos.
+Cada usuario tendrá sus propios quizzes favoritos y podrá cambiarlos a su antojo.
+Además, existe una opción de búsqueda para buscar sólo entre los quizzes favoritos.
 
 ## Pistas
 El los quizzes pueden incluir pistas (*tips*). Sólo en determinadas vistas es posible visualizar y crear pistas.
@@ -71,6 +75,17 @@ Estos permisos están asociados a los distintos **roles** que puede tener un ind
 * Administrador
 * Usuario
 * Anónimo (usuario sin iniciar sesión)
+
+## Archivos adjuntos
+Cada *quiz* tiene asociado un archivo adjunto.
+# Imágenes
+La aplicación soporta las siguientes extensiones:
+* **.jpeg**
+* **.gif**
+* **.jpg**
+* **.png**
+En principio, está pensado para que el archivo sea una foto.
+Pero otros tipos de archivos como videos (mp4) o pdf también están soportados por la aplicación.
 
 ## Autoload
 Algunos recursos (**quizzes**, **users**, **tips**) utilizan autoload de sus parámetros (*:quizId*, *:userId*, *:tipId*)

@@ -49,6 +49,15 @@ exports.adminAndNotMyselfRequired = (req, res, next) => {
         res.send(403);
     }
 };
+exports.myselfRequired = (req, res, next) => {
+    const isMyself = req.user.id === req.session.user.id;
+
+    if (isMyself) next();
+    else {
+        console.log('Prohibited route: it is not the logged user.');
+        res.send(403);
+    }
+};
 
 const authenticate = (username, password) => {
     return models.user.findOne({where: {username: username}})

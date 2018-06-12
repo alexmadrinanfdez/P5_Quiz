@@ -51,8 +51,9 @@ app.use(flash());
 
 // Dynamic helper:
 app.use(function (req, res, next) {
-    // To use req.session in views
+    // To use 'param' in views (req.param)
     res.locals.session = req.session;
+    res.locals.url = req.url;
     next();
 });
 

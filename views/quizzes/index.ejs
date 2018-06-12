@@ -3,6 +3,14 @@
         <input type="text" name="search" value="<%= locals.search || '' %>"
                placeholder="question to search" autocomplete="off">
         <input type="submit" value="Search">
+        <% if (session.user) { %>
+        <br/>
+        <div>
+            <label>Sólo favoritos:</label>
+            <input type="checkbox" name="searchFav" value="1" <%= locals.searchFav ? 'checked' : '' %>>
+            <img src="/images/check-icon.png" width="20px" height="20px"/>
+        </div>
+        <% } %>
     </form>
 </div>
 <h1>
@@ -15,6 +23,9 @@
         <td>
             <% var attachment = quiz.attachment; %>
             <% include ../attachments/_show.ejs %>
+        </td>
+        <td>
+            <% include ../favourites/plus-check.ejs %>
         </td>
         <td>
             <a href="/quizzes/<%= quiz.id %>/play"><%= quiz.question %></a>
