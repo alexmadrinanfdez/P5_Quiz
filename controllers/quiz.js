@@ -18,7 +18,9 @@ const cloudinary_upload_options = {
 exports.load = (req, res, next, quizId) => {
     const options = {
         include: [
-            models.tip,
+            { model: models.tip,
+                include: [{ model: models.user, as: 'author' }] // adds an object user as 'author' to the tip (quiz.tip.author)
+            },
             models.attachment,
             { model: models.user, as: 'author' } // adds an object user as a property 'author' to the quiz (quiz.author)
         ]

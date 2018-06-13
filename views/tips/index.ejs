@@ -6,6 +6,7 @@
         <% if (accepted || isAdmin || isQuizAuthor) { %>
     <li>
         <%= tips[i].text %>
+        <small>(by <%= tips[i].author ? tips[i].author.username : 'Anonymous' %>)</small>
         <% if (!accepted && (isAdmin || isQuizAuthor)) { %>
         <a href="/quizzes/<%= quizId %>/tips/<%= tips[i].id %>/accept?_method=PUT"><button>Accept</button></a>
         <% } %>

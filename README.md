@@ -59,7 +59,7 @@ Además, las pistas deben ser aceptadas para que un usuario cualquiera pueda ver
 La aplicación cuenta con un sistema de usuarios.
 Cada usuario posee una contraseña (que siempre se **encripta** antes de enviarla).
 ### Autores
-Los usuarios pueden convertirse en autores si crean quizzes.
+Los usuarios pueden convertirse en autores si crean quizzes (**autor de *quiz***) o si crean pistas (**autor de pista**).
 Se indica al lado de cada quiz quién es su autor *(by "author")*.
 #### My quizzes
 Cuando el usuario ha iniciado sesión, además, se aparece una pestaña (*My quizzes*) con los quizzes creados por él.
