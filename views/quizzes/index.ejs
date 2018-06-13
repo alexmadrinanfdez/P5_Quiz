@@ -1,5 +1,5 @@
 <div class="right">
-    <form method="get" action="/quizzes">
+    <form method="get" action="<%= url %>">
         <input type="text" name="search" value="<%= locals.search || '' %>"
                placeholder="question to search" autocomplete="off">
         <input type="submit" value="Search">

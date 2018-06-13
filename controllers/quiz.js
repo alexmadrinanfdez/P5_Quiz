@@ -121,47 +121,73 @@ exports.index = (req, res, next) => {
             return models.quiz.findAll(findOptions);
         })
         .then(quizzes => {
-            // Mark favourite quizzes
-            if (req.session.user) {
-                quizzes.forEach(quiz => {
-                    quiz.favourite = quiz.fans.some(fan => {
-                        return fan.id === req.session.user.id;
+            const format = (req.params.format || 'html').toLowerCase();
+            switch (format) {
+                case 'html':
+                    // Mark favourite quizzes
+                    if (req.session.user) {
+                        quizzes.forEach(quiz => {
+                            quiz.favourite = quiz.fans.some(fan => {
+                                return fan.id === req.session.user.id;
+                            });
+                        });
+                    }
+                    res.render('quizzes/index', {
+                        quizzes,
+                        search,
+                        searchFav,
+                        title,
+                        cloudinary
                     });
-                });
+
+                    break;
+                case 'json':
+                    res.json(quizzes);
+                    break;
+                default:
+                    console.log(`No supported format \".${format}\".`);
+                    res.sendStatus(406);
+
             }
-            res.render('quizzes/index', {
-                quizzes,
-                search,
-                searchFav,
-                title,
-                cloudinary
-            });
         })
         .catch(error => next(error));
 };
 // GET /quizzes/:quizId
 exports.show = (req, res, next) => {
     const {quiz} = req;
+    const format = (req.params.format || 'html').toLowerCase();
 
-    new Promise((resolve, reject) => {
-        // Only for logger users:
-        //   if this quiz is one of my favourites, then I create the attribute "favourite = true"
-        if (req.session.user) {
-            resolve(
-                req.quiz.getFans({where: {id: req.session.user.id}})
-                    .then(fans => {
-                        if (fans.length > 0) req.quiz.favourite = true;
-                    })
-            );
-        } else resolve();
-    })
-        .then(() => {
-            res.render('quizzes/show', {
-                quiz,
-                cloudinary
-            });
-        })
-        .catch(error => next(error));
+    switch (format) {
+        case 'html':
+            new Promise((resolve, reject) => {
+                // Only for logger users:
+                //   if this quiz is one of my favourites, then I create the attribute "favourite = true"
+                if (req.session.user) {
+                    resolve(
+                        req.quiz.getFans({where: {id: req.session.user.id}})
+                            .then(fans => {
+                                if (fans.length > 0) req.quiz.favourite = true;
+                            })
+                    );
+                } else resolve();
+            })
+                .then(() => {
+                    res.render('quizzes/show', {
+                        quiz,
+                        cloudinary
+                    });
+                })
+                .catch(error => next(error));
+
+            break;
+        case 'json':
+            res.json(quiz);
+            break;
+        default:
+            console.log(`No supported format \".${format}\".`);
+            res.sendStatus(406);
+    }
+
 };
 // GET /quizzes/new
 exports.new = (req, res, next) => {

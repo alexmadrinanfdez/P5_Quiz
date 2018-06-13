@@ -55,9 +55,9 @@ router.param('userId', userController.load); // summons load() every time it det
 router.param('tipId', tipController.load); // summons load() every time it detects the param :tipId
 
 // Routes for the resource "/quizzes"
-router.get('/quizzes',
+router.get('/quizzes.:format?',
     quizController.index);
-router.get('/quizzes/:quizId(\\d+)',
+router.get('/quizzes/:quizId(\\d+).:format?',
     quizController.show);
 router.get('/quizzes/new',
     sessionController.loginRequired, quizController.new);

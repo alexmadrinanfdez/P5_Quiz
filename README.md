@@ -27,6 +27,9 @@ Los mensajes pueden ser:
 * Informativos
 * De éxito
 * De error
+### JSON
+Se extiende el interfaz de *quizzes* a la extensión **.json**.
+Para que la BBDD devuelva los *quizzes* en formato JSON cuando sea necesario.
 
 ## Quizzes
 La aplicación es un almacén de quizzes. Las acciones permitidas para los quizzes son:
@@ -84,8 +87,9 @@ La aplicación soporta las siguientes extensiones:
 * **.gif**
 * **.jpg**
 * **.png**
+
 En principio, está pensado para que el archivo sea una foto.
-Pero otros tipos de archivos como videos (mp4) o pdf también están soportados por la aplicación.
+Pero otros tipos de archivos como videos (**.mp4**) o documentos **.pdf** también están soportados por la aplicación.
 
 ## Autoload
 Algunos recursos (**quizzes**, **users**, **tips**) utilizan autoload de sus parámetros (*:quizId*, *:userId*, *:tipId*)
