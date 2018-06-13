@@ -382,3 +382,42 @@ exports.check = (req, res, next) => {
         answer: answer
     });
 };
+
+// GET /quizzes/randomplay
+exports.randomplay = (req, res, next) => {
+    req.session.answered = req.session.answered || []; // Array con las preguntas respondidas
+    const score = req.session.answered.length;
+    // Escogemos una pregunta al azar que NO esté entre las ya respondidas
+    models.quiz.findOne({where: {id: {[Sequelize.Op.notIn]: req.session.answered}}, order: [Sequelize.fn('RANDOM')]})
+        .then(quiz => {
+            if (quiz) {
+                res.render('random/random_play', {
+                    quiz,
+                    score
+                });
+            } else {
+                delete req.session.answered;
+                res.render('random/random_nomore', { score });
+            }
+        });
+};
+// GET /quizzes/randomcheck/:quizId
+exports.randomCheck = (req, res, next) => {
+    const {quiz, query} = req;
+    req.session.answered = req.session.answered || [];
+    const answer = query.answer || "";
+    const result = answer.toLowerCase().trim() === quiz.answer.toLowerCase().trim();
+    if (result) {
+        if (req.session.answered.indexOf(req.quiz.id) === -1)
+            req.session.answered.push(req.quiz.id);
+    }
+    const score = req.session.answered.length;
+    if (!result) {
+        delete req.session.answered;
+    }
+    res.render('random/random_result', {
+        answer,
+        result,
+        score
+    });
+};

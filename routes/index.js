@@ -116,4 +116,8 @@ router.put('/users/:userId(\\d+)/favourites/:quizId(\\d+)',
 router.delete('/users/:userId(\\d+)/favourites/:quizId(\\d+)',
     sessionController.loginRequired, sessionController.adminOrMyselfRequired, favouriteController.delete);
 
+// Routes for the resource "/randomplay"
+router.get('/quizzes/randomplay',                quizController.randomplay);
+router.get('/quizzes/randomcheck/:quizId(\\d+)', quizController.randomCheck);
+
 module.exports = router;

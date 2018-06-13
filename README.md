@@ -45,6 +45,11 @@ La búsqueda se implementa como un parámetro que pasamos a la base de datos (op
 Los *quizzes* se pueden marcar como favoritos.
 Cada usuario tendrá sus propios quizzes favoritos y podrá cambiarlos a su antojo.
 Además, existe una opción de búsqueda para buscar sólo entre los quizzes favoritos.
+### Play
+Existe un modo de juego alternativo al *"jugar"* un quiz.
+Consiste en intentar responder todas las preguntas bien.
+
+Los *quizzes* se preguntarán de forma aleatoria y no se repetirán.
 
 ## Pistas
 El los quizzes pueden incluir pistas (*tips*). Sólo en determinadas vistas es posible visualizar y crear pistas.
