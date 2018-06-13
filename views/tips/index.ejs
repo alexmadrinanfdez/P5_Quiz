@@ -3,7 +3,9 @@
     <% var accepted = tips[i].accepted; %>
     <% var isAdmin = session.user && session.user.isAdmin; %>
     <% var isQuizAuthor = session.user && quizAuthorId && quizAuthorId === session.user.id; %>
-        <% if (accepted || isAdmin || isQuizAuthor) { %>
+    <% var isTipAuthor = session.user && tips[i].authorId === session.user.id; %>
+
+    <% if (accepted || isAdmin || isQuizAuthor) { %>
     <li>
         <%= tips[i].text %>
         <small>(by <%= tips[i].author ? tips[i].author.username : 'Anonymous' %>)</small>
@@ -12,6 +14,11 @@
         <% } %>
         <% if (isAdmin || isQuizAuthor) { %>
         <a href="/quizzes/<%= quizId %>/tips/<%= tips[i].id %>?_method=DELETE"><button>Delete</button></a>
+        <% } %>
+        <% if (isAdmin || isTipAuthor) { %>
+        <a href="/quizzes/<%= quizId %>/tips/<%= tips[i].id %>/edit">
+            <button>Edit</button>
+        </a>
         <% } %>
     </li>
     <% } %>

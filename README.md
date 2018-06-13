@@ -53,6 +53,7 @@ Los *quizzes* se preguntarán de forma aleatoria y no se repetirán.
 
 ## Pistas
 El los quizzes pueden incluir pistas (*tips*). Sólo en determinadas vistas es posible visualizar y crear pistas.
+También es posible editar pistas.
 Además, las pistas deben ser aceptadas para que un usuario cualquiera pueda verlas.
 
 ## Usuarios
