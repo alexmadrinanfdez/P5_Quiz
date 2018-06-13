@@ -12,7 +12,7 @@ body {
 
 .main {
   flex: 1 100%;
-  border: 1px solid #999;
+  border: 1px solid #636363;
   padding: 2px;
   margin: 1px;
   background: #fcf3cf;
@@ -22,7 +22,10 @@ body {
   text-align: center;
 }
 
-#mainHeader h1 {margin: 8px;}
+#mainHeader h1 {
+  margin: 8px;
+  font-variant: small-caps;
+}
 #mainNav ul {
   list-style-type: none;
   margin: 0;
@@ -51,7 +54,31 @@ ul {
 
 a {
   color: #00B7FF;
+  text-decoration-line: none;
 }
+
+button {
+  cursor: pointer;
+  -webkit-transition-duration: 0.3s; /* Safari */
+  transition-duration: 0.4s;
+  background-color: white;
+  border: 2px solid #e7e7e7;
+}
+button:hover {background-color: #e7e7e7}
+button:active {
+  background-color: #a9cce3;
+}
+.menuButton {
+  padding: 0.4em 1em;
+}
+.menuButton:active {
+  transform: translateY(3px);
+}
+.new {
+  padding: 1em;
+  box-shadow: none;
+}
+.new:active {transform: none}
 
 .right {
   float: right;
@@ -76,12 +103,12 @@ a {
   border-collapse: collapse;
 }
 #quizzesIndex tr {
-  background-color: #e5e5e5;
-  border: 1px dotted #636363;
+  background-color: #fbeee6;
+  border: 2px dotted #a9cce3;
   border-radius: 5px;
 }
 #quizzesIndex tr:nth-child(even) {
-  background-color: #cfcfcf;
+  background-color: #f7f9f9;
 }
 #quizzesIndex td {
   padding: 3px;
@@ -96,8 +123,8 @@ a {
   text-align: left;
 }
 #quizzesIndex tr td:nth-child(3) {
-  vertical-align: bottom;
-  text-align: right;
+  vertical-align: center;
+  text-align: center;
 }
 
 .quizItem {
@@ -105,9 +132,9 @@ a {
   flex-flow: row wrap;
   align-content: stretch;
   width: 100%;
-  border: 1px dotted #636363;
+  border: 2px dotted #a9cce3;
   border-radius: 5px;
-  background-color: #e5e5e5;
+  background-color: #f7f9f9;
   margin: 10px 0;
 }
 .quizItem div {
@@ -204,12 +231,13 @@ a {
 }
 .pagination > li {
   display: inline;
+  font-weight: bold;
 }
 .pagination > li > a,
 .pagination > li > span {
   position: relative;
   float: left;
-  padding: 1px 5px;
+  padding: 2px 7px;
   margin-left: -1px;
   line-height: 1.42857143;
   color: #00B7FF;

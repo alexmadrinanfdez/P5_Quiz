@@ -17,6 +17,10 @@ body {
     margin-bottom: 4px;
 }
 
+#quizzesIndex tr {
+    background-color: #f2d7d5;
+}
+
 .no-narrow {
     display: none;
 }

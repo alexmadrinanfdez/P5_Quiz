@@ -25,3 +25,7 @@ body {
     flex: 1;
     overflow: auto;
 }
+
+#quizzesIndex tr {
+    background-color: #e9f7ef;
+}
