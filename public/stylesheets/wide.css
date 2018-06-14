@@ -5,6 +5,7 @@ body {
 #page:after {
     color: #fcf3cf;
     content: 'Wide Layout';
+    font-weight: bold;
 }
 
 #mainNav {

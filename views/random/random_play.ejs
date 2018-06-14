@@ -7,15 +7,32 @@
 </div>
 
 <form method="get" action="/quizzes/randomcheck/<%= quiz.id %>">
-
-    <p>
-        Question: <b><%= quiz.question %></b>
-    </p>
-
-
-    <div class="wideRow">
-        <input type="text" class="itemWide" id="answer" name="answer" value="" placeholder="Answer" autocomplete="off"/>
-        <input type="submit" class="itemNarrow" id="send" value="Check">
+    <div class="quizItem">
+        <div>
+            <% var attachment = quiz.attachment; %>
+            <% include ../attachments/_show.ejs %>
+        </div>
+        <div>
+            <br/>
+            Question: <b><%= quiz.question %></b>
+            <div class="wideRow">
+                <input type="text" class="itemWide" id="answer" name="answer" value="" placeholder="Answer" autocomplete="off"/>
+                <input type="submit" class="itemNarrow" id="send" value="Check">
+            </div>
+            <small>(by <%= quiz.author ? quiz.author.username : 'Anonymous' %>)</small>
+        </div>
     </div>
 </form>
+
+<h2>
+    Tips:
+</h2>
+<div id="noButtons">
+    <% var tips = quiz.tips; %>
+    <% var quizId = quiz.id %>
+    <% var quizAuthorId = quiz.authorId; %>
+    <% include ../tips/index.ejs %>
+</div>
+
+<a href="/goback"><button>Stop playing</button></a>
 

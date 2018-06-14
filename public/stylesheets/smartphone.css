@@ -6,6 +6,7 @@ body {
 #page:after {
     color: #fcf3cf;
     content: 'Smartphone Layout';
+    font-weight: bold;
 }
 
 #mainHeader {

@@ -389,14 +389,28 @@ exports.check = (req, res, next) => {
 exports.randomplay = (req, res, next) => {
     req.session.answered = req.session.answered || []; // Array con las preguntas respondidas
     const score = req.session.answered.length;
+    const options = {
+        include: [
+            { model: models.tip,
+                include: [{ model: models.user, as: 'author' }] // adds an object user as 'author' to the tip (quiz.tip.author)
+            },
+            models.attachment,
+            { model: models.user, as: 'author' } // adds an object user as a property 'author' to the quiz (quiz.author)
+        ]
+    };
     // Escogemos una pregunta al azar que NO esté entre las ya respondidas
     models.quiz.findOne({where: {id: {[Sequelize.Op.notIn]: req.session.answered}}, order: [Sequelize.fn('RANDOM')]})
         .then(quiz => {
             if (quiz) {
-                res.render('random/random_play', {
-                    quiz,
-                    score
-                });
+                req.quiz = quiz;
+                models.quiz.findById(req.quiz.id, options)
+                    .then(quiz => {
+                        res.render('random/random_play', {
+                            quiz,
+                            score,
+                            cloudinary
+                        });
+                    });
             } else {
                 delete req.session.answered;
                 res.render('random/random_nomore', { score });

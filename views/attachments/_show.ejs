@@ -12,7 +12,7 @@
     <% } else if (attachment.mime === 'application/pdf') { %>
     <%- cloudinary.image(attachment.public_id, {width: 150, format: 'jpg', secure: true}) %>
     <% } else { %>
-    <img src="/images/doc.png" width="150px"/>
+    <img src="/images/question.png" width="150px"/>
     <% } %>
 </a>
 <% } else { %>

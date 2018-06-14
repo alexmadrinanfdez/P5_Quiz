@@ -26,29 +26,24 @@
         </td>
         <td>
             <% include ../favourites/plus-check.ejs %>
-        </td>
-        <td>
             <a href="/quizzes/<%= quiz.id %>/play"><%= quiz.question %></a>
-        </td>
-        <td colspan="2">
             <small>(by <%= quiz.author ? quiz.author.username : 'Anonymous' %>)</small>
         </td>
-        <% if (session.user) { %>
-        <% if (session.user.isAdmin || session.user.id === quiz.authorId) { %>
+
         <td>
+            <% if (session.user) { %>
+            <% if (session.user.isAdmin || session.user.id === quiz.authorId) { %>
+
             <a href="/quizzes/<%= quiz.id %>"><button class="menuButton">show</button></a>
-        </td>
-        <td>
             <a href="/quizzes/<%= quiz.id %>/edit"><button class="menuButton">edit</button></a>
-        </td>
-        <td>
             <a href="/quizzes/<%= quiz.id %>?_method=DELETE"
                onclick="return confirm('Delete: <%= quiz.question %>');">
                 <button class="menuButton">delete</button>
             </a>
+
+            <% } %>
+            <% } %>
         </td>
-        <% } %>
-        <% } %>
     </tr>
     <% } %>
 </table>
